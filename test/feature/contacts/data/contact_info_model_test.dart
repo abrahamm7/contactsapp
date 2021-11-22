@@ -5,7 +5,7 @@ import 'package:mockito/mockito.dart';
 
 void main() {
   var contactModel =
-      ContactInfoModel(id: 1, name: '', phoneNumber: '', address: '');
+      const ContactInfoModel(id: 1, name: '', phoneNumber: '', address: '');
 
   test('Test model are equal to entities', () {
     expect(contactModel, isA<ContactInfo>());

@@ -10,7 +10,7 @@ void main() async {
     _db = await DatabaseHelper().initDb();
   });
 
-  var itemToInsert = ContactInfoModel(
+  var itemToInsert = const ContactInfoModel(
       id: 1, name: 'Abraham', phoneNumber: '809-532-5315', address: 'Calle B');
 
   group('Testing operations in database', () {

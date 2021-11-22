@@ -1,7 +1,7 @@
 import 'package:contactsapp/feature/contacts/domain/entities/contact_info.dart';
 
 class ContactInfoModel extends ContactInfo {
-  ContactInfoModel(
+  const ContactInfoModel(
       {required int id,
       required String name,
       required String phoneNumber,
