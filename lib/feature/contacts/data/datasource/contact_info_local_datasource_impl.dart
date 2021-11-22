@@ -19,7 +19,7 @@ class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
 
   @override
   void writeContact(ContactInfoModel contactInfoModel) async {
-    Database? _db = await DatabaseHelper().initDb();
-    _db?.insert(Constants.tableName, contactInfoModel.toDbMap());
+    Database _db = await DatabaseHelper().initDb();
+    _db.insert(Constants.tableName, contactInfoModel.toDbMap());
   }
 }
