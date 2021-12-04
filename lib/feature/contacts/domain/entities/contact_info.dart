@@ -13,6 +13,5 @@ class ContactInfo extends Equatable {
       required this.address});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [name, phoneNumber, address];
 }

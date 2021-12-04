@@ -18,8 +18,8 @@ class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
   }
 
   @override
-  void writeContact(ContactInfoModel contactInfoModel) async {
+  Future<int> writeContact(ContactInfoModel contactInfoModel) async {
     Database _db = await DatabaseHelper().initDb();
-    _db.insert(Constants.tableName, contactInfoModel.toDbMap());
+    return await _db.insert(Constants.tableName, contactInfoModel.toDbMap());
   }
 }

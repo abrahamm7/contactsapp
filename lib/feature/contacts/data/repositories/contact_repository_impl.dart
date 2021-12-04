@@ -14,7 +14,8 @@ class ContactRepositoryImpl implements ContactRepository {
   }
 
   @override
-  void writeContact(ContactInfo contactInfo) {
-    contactInfoLocalDataSource.writeContact(contactInfo as ContactInfoModel);
+  Future<int> writeContact(ContactInfo contactInfo) {
+    return contactInfoLocalDataSource
+        .writeContact(contactInfo as ContactInfoModel);
   }
 }
