@@ -17,6 +17,6 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE ContactsTbl(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, phoneNumber TEXT, address TEXT)");
+        "CREATE TABLE ContactsTbl(id INTEGER PRIMARY KEY, name TEXT, phoneNumber TEXT, address TEXT)");
   }
 }

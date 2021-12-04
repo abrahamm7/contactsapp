@@ -23,27 +23,32 @@ class _ContactsCardState extends State<ContactsCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5),
-      child: GestureDetector(
-        child: InkWell(
+        padding: const EdgeInsets.all(5),
+        child: GestureDetector(
           child: Card(
-            child: Row(
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: Colors.blueGrey,
-                  child: Text(NameHelpers.getInitials(widget.nameContact)),
-                ),
-                Center(
-                  child: Text(widget.nameContact),
-                ),
-                Center(
-                  child: Text(widget.phoneContact),
-                )
-              ],
+            child: InkWell(
+              splashColor: Colors.green,
+              onTap: () {
+                setState(() {});
+              },
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundColor: Colors.blueGrey,
+                    child: Text(NameHelpers.getInitials(widget.nameContact)),
+                  ),
+                  const SizedBox(width: 10),
+                  Center(
+                    child: Text(widget.nameContact),
+                  ),
+                  const SizedBox(width: 10),
+                  Center(
+                    child: Text(widget.phoneContact),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

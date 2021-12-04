@@ -1,6 +1,7 @@
 import 'package:contactsapp/feature/contacts/presentation/providers/show_contacts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 
 class CreateContact extends StatefulWidget {
   const CreateContact({Key? key}) : super(key: key);
@@ -18,10 +19,9 @@ class _CreateContactState extends State<CreateContact> {
   static const String VALIDATE_TEXT = 'Este campo es obligatorio';
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ShowContactsProvider>(
-        create: (context) => ShowContactsProvider(),
-        child:
-            Consumer<ShowContactsProvider>(builder: (context, provider, child) {
+    return ChangeNotifierProvider<ContactsProvider>(
+        create: (context) => ContactsProvider(),
+        child: Consumer<ContactsProvider>(builder: (context, provider, child) {
           return Scaffold(
             appBar: AppBar(
               title: const Text('New contact'),
@@ -65,15 +65,22 @@ class _CreateContactState extends State<CreateContact> {
             ),
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.green,
-              onPressed: () {
+              onPressed: () async {
                 if (_contactKeyForm.currentState!.validate()) {
-                  setState(() {
-                    context.read<ShowContactsProvider>().writeNewContact(
-                        contactNameController.text,
-                        contactPhoneController.text,
-                        contactAddressController.text);
-                  });
+                  var result = await context
+                      .read<ContactsProvider>()
+                      .writeNewContact(
+                          contactNameController.text,
+                          contactPhoneController.text,
+                          contactAddressController.text);
                   Navigator.pop(context, true);
+                  if (result == 0) {
+                    Dialogs.bottomMaterialDialog(
+                        context: context,
+                        msg: 'Contact not inserted',
+                        title: 'Fail',
+                        color: Colors.white);
+                  }
                 }
               },
               child: const Icon(Icons.check),
