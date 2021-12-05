@@ -2,7 +2,6 @@
 
 import 'package:contactsapp/feature/contacts/data/datasource/contact_info_local_datasource_impl.dart';
 import 'package:contactsapp/feature/contacts/data/models/contact_info_model.dart';
-import 'package:contactsapp/feature/contacts/data/repositories/contact_repository_impl.dart';
 import 'package:contactsapp/feature/contacts/presentation/components/contactscard.dart';
 import 'package:contactsapp/feature/contacts/presentation/pages/write_contacts_page.dart';
 import 'package:contactsapp/feature/contacts/presentation/providers/show_contacts_provider.dart';
@@ -19,7 +18,7 @@ class ShowContacts extends StatefulWidget {
 }
 
 class _ShowContactsState extends State<ShowContacts> {
-  ContactInfoLocalDataSourceImpl contactRepositoryImpl =
+  ContactInfoLocalDataSourceImpl contactInfoLocalDataSourceImpl =
       ContactInfoLocalDataSourceImpl();
   List<ContactInfoModel> listContacts = [];
 
@@ -30,8 +29,7 @@ class _ShowContactsState extends State<ShowContacts> {
   }
 
   void getContacts() async {
-    listContacts = await contactRepositoryImpl.getContacts();
-    print(listContacts.length);
+    listContacts = await contactInfoLocalDataSourceImpl.getContacts();
     setState(() {});
   }
 

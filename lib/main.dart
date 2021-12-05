@@ -11,6 +11,6 @@ void main() {
       initialRoute: '/',
       routes: {
         '/': (context) => const ShowContacts(),
-        '/newContact': (context) => CreateContact()
+        '/newContact': (context) => const CreateContact()
       }));
 }
