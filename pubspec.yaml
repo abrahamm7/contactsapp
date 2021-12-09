@@ -37,6 +37,9 @@ dependencies:
   avatar_glow: ^2.0.2
   lottie: ^1.2.1
   material_dialogs: ^1.1.1
+  url_launcher: ^6.0.17
+  flutter_phone_direct_caller: ^2.1.0
+  dartz: ^0.10.1
 
 
   # The following adds the Cupertino Icons font to your application.

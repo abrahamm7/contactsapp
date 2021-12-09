@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_new
-
 import 'package:contactsapp/feature/contacts/data/datasource/contact_info_local_datasource_impl.dart';
 import 'package:contactsapp/feature/contacts/data/models/contact_info_model.dart';
 import 'package:contactsapp/feature/contacts/presentation/components/contactscard.dart';
@@ -70,7 +68,7 @@ class _ShowContactsState extends State<ShowContacts> {
               onPressed: () {
                 setState(() {
                   Navigator.of(context)
-                      .push(new MaterialPageRoute(
+                      .push(MaterialPageRoute(
                           builder: (_) => const CreateContact()))
                       .then((value) => value ? getContacts() : null);
                 });

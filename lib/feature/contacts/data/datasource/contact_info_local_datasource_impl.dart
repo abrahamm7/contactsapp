@@ -22,4 +22,17 @@ class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
     Database _db = await DatabaseHelper().initDb();
     return await _db.insert(Constants.tableName, contactInfoModel.toDbMap());
   }
+
+  @override
+  Future<ContactInfoModel> getContactById(int? id) async {
+    Database _db = await DatabaseHelper().initDb();
+    List<ContactInfoModel> listContacts = [];
+    var resultQuery =
+        await _db.query(Constants.tableName, where: 'id = ?', whereArgs: [id]);
+
+    for (var item in resultQuery) {
+      listContacts.add(ContactInfoModel.fromDbMap(item));
+    }
+    return listContacts.first;
+  }
 }

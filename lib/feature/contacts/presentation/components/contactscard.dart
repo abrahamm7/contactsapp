@@ -1,8 +1,10 @@
 import 'dart:math';
-
+import 'package:contactsapp/feature/contacts/presentation/pages/edit_contacts_page.dart';
 import 'package:contactsapp/utils/getinitials.dart';
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class ContactsCard extends StatefulWidget {
   final int? id;
@@ -33,13 +35,37 @@ class _ContactsCardState extends State<ContactsCard> {
               splashColor: Colors.green,
               onTap: () {
                 setState(() {});
-              },
-              onLongPress: () {
                 Dialogs.bottomMaterialDialog(
                     context: context,
-                    msg: '¿Eliminar contacto?',
+                    msg: widget.phoneContact,
+                    title: widget.nameContact,
+                    actions: <Widget>[
+                      IconsButton(
+                        onPressed: () async {
+                          FlutterPhoneDirectCaller.callNumber(
+                              widget.phoneContact);
+                        },
+                        text: 'Call',
+                        iconColor: Colors.green,
+                        iconData: Icons.call,
+                      ),
+                      IconsButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    EditContact(id: widget.id)));
+                          },
+                          text: 'Edit',
+                          iconColor: Colors.white,
+                          iconData: Icons.edit),
+                      IconsButton(
+                        onPressed: () {},
+                        text: 'Delete',
+                        iconColor: Colors.red,
+                        iconData: Icons.delete,
+                      )
+                    ],
                     color: Colors.grey.shade800);
-                setState(() {});
               },
               child: Column(
                 children: <Widget>[
