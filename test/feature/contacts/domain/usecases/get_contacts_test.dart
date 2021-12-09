@@ -20,7 +20,7 @@ void main() {
     List<ContactInfo> contactList = [];
 
     when(mockContactRepository.getContacts())
-        .thenAnswer((_) async => await Right(contactList));
+        .thenAnswer((_) async => Right(contactList));
 
     //act
     final result = await usecase.call(NoParams());
