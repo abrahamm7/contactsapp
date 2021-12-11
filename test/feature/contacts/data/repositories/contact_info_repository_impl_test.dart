@@ -1,3 +1,5 @@
+import 'package:contactsapp/core/helpers/error/exeptions.dart';
+import 'package:contactsapp/core/helpers/error/failure.dart';
 import 'package:contactsapp/feature/contacts/data/datasource/contact_info_local_datasource.dart';
 import 'package:contactsapp/feature/contacts/data/models/contact_info_model.dart';
 import 'package:contactsapp/feature/contacts/data/repositories/contact_repository_impl.dart';
@@ -18,7 +20,7 @@ void main() {
         contactInfoLocalDataSource: mockContactInfoLocalDatasource);
   });
 
-  group('Local data source', () {
+  group('Local data source interactions', () {
     test(
         'Should return contact when call get concrete contact from local data source',
         () async {
@@ -79,16 +81,86 @@ void main() {
         () async {
       //arrange
       int affectedRows = 1;
-      int idContact = 1;
+      const contactInfoModel = ContactInfoModel(
+          name: 'Abraham', phoneNumber: '809-532-5315', address: 'Bella Vista');
 
-      when(mockContactInfoLocalDatasource.updateContact(idContact))
+      when(mockContactInfoLocalDatasource.updateContact(contactInfoModel))
           .thenAnswer((_) async => affectedRows);
 
       //act
-      final result = await contactRepositoryImpl.updateContact(idContact);
+      final result =
+          await contactRepositoryImpl.updateContact(contactInfoModel);
 
       //assert
       expect(result, Right(affectedRows));
+    });
+  });
+
+  group('Local data source failures', () {
+    test(
+        'Should return failure when cannot get concrete contact from local data source',
+        () async {
+      //arrange
+      int contactId = 1;
+      when(mockContactInfoLocalDatasource.getContactById(any))
+          .thenThrow(CacheExeptions());
+
+      //act
+      final result = await contactRepositoryImpl.getContactById(contactId);
+
+      //assert
+      expect(result, equals(Left(CacheFailures())));
+    });
+
+    test(
+        'Should return failure when cannot get a list of contacts from local data source',
+        () async {
+      //arrange
+      when(mockContactInfoLocalDatasource.getContacts())
+          .thenThrow(CacheExeptions());
+
+      //act
+      final result = await contactRepositoryImpl.getContacts();
+
+      //assert
+      expect(result, equals(Left(CacheFailures())));
+    });
+
+    test(
+        'Should return failure when cannot update contact in local data source',
+        () async {
+      //arrange
+
+      const contactInfoModel = ContactInfoModel(
+          name: 'Abraham', phoneNumber: '809-532-5315', address: 'Bella Vista');
+
+      when(mockContactInfoLocalDatasource.updateContact(contactInfoModel))
+          .thenThrow(CacheExeptions());
+
+      //act
+      final result =
+          await contactRepositoryImpl.updateContact(contactInfoModel);
+
+      //assert
+      expect(result, equals(Left(CacheFailures())));
+    });
+
+    test(
+        'Should return failure when cannot insert contact in local data source',
+        () async {
+      //arrange
+
+      const contactInfoModel = ContactInfoModel(
+          name: 'Abraham', phoneNumber: '809-532-5315', address: 'Bella Vista');
+
+      when(mockContactInfoLocalDatasource.writeContact(contactInfoModel))
+          .thenThrow(CacheExeptions());
+
+      //act
+      final result = await contactRepositoryImpl.writeContact(contactInfoModel);
+
+      //assert
+      expect(result, equals(Left(CacheFailures())));
     });
   });
 }

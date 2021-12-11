@@ -4,5 +4,5 @@ abstract class ContactInfoLocalDataSource {
   Future<int> writeContact(ContactInfoModel contactInfoModel);
   Future<List<ContactInfoModel>> getContacts();
   Future<ContactInfoModel> getContactById(int? id);
-  Future<int> updateContact(int? id);
+  Future<int> updateContact(ContactInfoModel contactInfo);
 }

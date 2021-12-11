@@ -37,7 +37,7 @@ class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
   }
 
   @override
-  Future<int> updateContact(int? id) {
+  Future<int> updateContact(ContactInfoModel contactInfo) {
     // TODO: implement updateContact
     throw UnimplementedError();
   }

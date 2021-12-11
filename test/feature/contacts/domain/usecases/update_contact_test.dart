@@ -1,3 +1,4 @@
+import 'package:contactsapp/feature/contacts/domain/entities/contact_info.dart';
 import 'package:contactsapp/feature/contacts/domain/repositories/contact_repository.dart';
 import 'package:contactsapp/feature/contacts/domain/usecases/update_contact.dart';
 import 'package:dartz/dartz.dart';
@@ -16,16 +17,18 @@ void main() {
 
   test('Update contact on localdatabase', () async {
     //arrange
-    int idRow = 1;
+    int affectedRows = 1;
+    const contactInfoModel = ContactInfo(
+        name: 'Abraham', phoneNumber: '809-532-5315', address: 'Bella Vista');
 
-    when(mockContactRepository.updateContact(any))
-        .thenAnswer((_) async => Right(idRow));
+    when(mockContactRepository.updateContact(contactInfoModel))
+        .thenAnswer((_) async => Right(affectedRows));
     //act
-    final result = await usecase.call(idRow);
+    final result = await usecase.call(contactInfoModel);
 
     //assert
-    expect(result, Right(idRow));
-    verify(mockContactRepository.updateContact(idRow));
+    expect(result, Right(affectedRows));
+    verify(mockContactRepository.updateContact(contactInfoModel));
     verifyNoMoreInteractions(mockContactRepository);
   });
 }
