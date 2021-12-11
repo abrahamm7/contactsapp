@@ -4,7 +4,7 @@ import 'package:contactsapp/feature/contacts/data/models/contact_info_model.dart
 import 'package:contactsapp/feature/contacts/domain/entities/contact_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../core/fixture/fixture.dart';
+import '../../../../core/fixture/fixture.dart';
 
 void main() {
   const contactModel = ContactInfoModel(
@@ -18,7 +18,7 @@ void main() {
     expect(contactModel, isA<ContactInfo>());
   });
 
-  group('Contact info dbmap', () {
+  group('Contact info fromdbmap', () {
     test('Should return same structure like model', () {
       //arrange
       final Map<String, dynamic> dbMap =

@@ -35,4 +35,10 @@ class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
     }
     return listContacts.first;
   }
+
+  @override
+  Future<int> updateContact(int? id) {
+    // TODO: implement updateContact
+    throw UnimplementedError();
+  }
 }
