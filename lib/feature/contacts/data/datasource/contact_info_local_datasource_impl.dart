@@ -5,40 +5,68 @@ import 'package:contactsapp/feature/contacts/data/models/contact_info_model.dart
 import 'package:sqflite/sqflite.dart';
 
 class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
+  late Database database;
   @override
   Future<List<ContactInfoModel>> getContacts() async {
-    Database _db = await DatabaseHelper().initDb();
-    var resultQuery = await _db.query(Constants.tableName);
-    List<ContactInfoModel> listContacts = [];
-
-    for (var item in resultQuery) {
-      listContacts.add(ContactInfoModel.fromDbMap(item));
-    }
-    return listContacts;
+    return fetchAllContactsFromLocalDb();
   }
 
   @override
   Future<int> writeContact(ContactInfoModel contactInfoModel) async {
-    Database _db = await DatabaseHelper().initDb();
-    return await _db.insert(Constants.tableName, contactInfoModel.toDbMap());
+    return insertContactIntoLocalDb(contactInfoModel);
   }
 
   @override
   Future<ContactInfoModel> getContactById(int? id) async {
-    Database _db = await DatabaseHelper().initDb();
-    List<ContactInfoModel> listContacts = [];
-    var resultQuery =
-        await _db.query(Constants.tableName, where: 'id = ?', whereArgs: [id]);
-
-    for (var item in resultQuery) {
-      listContacts.add(ContactInfoModel.fromDbMap(item));
-    }
-    return listContacts.first;
+    return fetchConcreteContact(id);
   }
 
   @override
-  Future<int> updateContact(ContactInfoModel contactInfo) {
-    // TODO: implement updateContact
-    throw UnimplementedError();
+  Future<int> updateContact(ContactInfoModel contactInfo) async {
+    return await updateContactIntoLocalDatabase(contactInfo);
+  }
+
+  Future<List<ContactInfoModel>> fetchAllContactsFromLocalDb() async {
+    database = await DatabaseHelper().initDb();
+
+    var queryResult = await database.query(Constants.tableName);
+
+    List<ContactInfoModel> listContacts = [];
+
+    for (var element in queryResult) {
+      listContacts.add(ContactInfoModel.fromDbMap(element));
+    }
+
+    return listContacts;
+  }
+
+  Future<ContactInfoModel> fetchConcreteContact(int? id) async {
+    database = await DatabaseHelper().initDb();
+
+    List<ContactInfoModel> listContacts = [];
+
+    var queryResult = await database
+        .query(Constants.tableName, where: 'id = ?', whereArgs: [id]);
+
+    for (var item in queryResult) {
+      listContacts.add(ContactInfoModel.fromDbMap(item));
+    }
+
+    return listContacts.first;
+  }
+
+  Future<int> insertContactIntoLocalDb(
+      ContactInfoModel contactInfoModel) async {
+    database = await DatabaseHelper().initDb();
+    return await database.insert(
+        Constants.tableName, contactInfoModel.toDbMap());
+  }
+
+  Future<int> updateContactIntoLocalDatabase(
+      ContactInfoModel contactInfoModel) async {
+    database = await DatabaseHelper().initDb();
+    return await database.update(
+        Constants.tableName, contactInfoModel.toDbMap(),
+        where: "id = ?", whereArgs: [contactInfoModel.id]);
   }
 }
