@@ -1,7 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:contactsapp/feature/contacts/data/datasource/contact_info_local_datasource_impl.dart';
 import 'package:contactsapp/feature/contacts/data/models/contact_info_model.dart';
-import 'package:contactsapp/feature/contacts/presentation/providers/show_contacts_provider.dart';
+import 'package:contactsapp/feature/contacts/presentation/providers/contacts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

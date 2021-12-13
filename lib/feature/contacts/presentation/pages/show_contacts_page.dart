@@ -2,7 +2,7 @@ import 'package:contactsapp/feature/contacts/data/datasource/contact_info_local_
 import 'package:contactsapp/feature/contacts/data/models/contact_info_model.dart';
 import 'package:contactsapp/feature/contacts/presentation/components/contactscard.dart';
 import 'package:contactsapp/feature/contacts/presentation/pages/write_contacts_page.dart';
-import 'package:contactsapp/feature/contacts/presentation/providers/show_contacts_provider.dart';
+import 'package:contactsapp/feature/contacts/presentation/providers/contacts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';

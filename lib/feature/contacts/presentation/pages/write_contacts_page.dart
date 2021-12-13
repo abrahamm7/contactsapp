@@ -1,4 +1,4 @@
-import 'package:contactsapp/feature/contacts/presentation/providers/show_contacts_provider.dart';
+import 'package:contactsapp/feature/contacts/presentation/providers/contacts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:material_dialogs/material_dialogs.dart';
