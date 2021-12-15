@@ -52,8 +52,11 @@ class _ContactsCardState extends State<ContactsCard> {
                       IconsButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    EditContact(id: widget.id)));
+                                builder: (_) => EditContact(
+                                    id: widget.id,
+                                    nameContact: widget.nameContact,
+                                    phoneContact: widget.phoneContact,
+                                    addressContact: widget.addressContact)));
                           },
                           text: 'Edit',
                           iconColor: Colors.white,

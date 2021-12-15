@@ -13,7 +13,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Provider
-  sl.registerFactory(() => ContactsProvider(sl(), sl()));
+  sl.registerFactory(() => ContactsProvider(sl(), sl(), sl()));
 
   //Use cases
   sl.registerLazySingleton(() => WriteContact(sl()));
