@@ -1,7 +1,7 @@
 import 'package:contactsapp/feature/contacts/presentation/providers/contacts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:material_dialogs/material_dialogs.dart';
+import 'package:contactsapp/injection_container.dart';
 
 class CreateContact extends StatefulWidget {
   const CreateContact({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _CreateContactState extends State<CreateContact> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ContactsProvider>(
-        create: (context) => ContactsProvider(),
+        create: (context) => sl<ContactsProvider>(),
         child: Consumer<ContactsProvider>(builder: (context, provider, child) {
           return Scaffold(
             appBar: AppBar(
@@ -67,20 +67,11 @@ class _CreateContactState extends State<CreateContact> {
               backgroundColor: Colors.green,
               onPressed: () async {
                 if (_contactKeyForm.currentState!.validate()) {
-                  var result = await context
-                      .read<ContactsProvider>()
-                      .writeNewContact(
-                          contactNameController.text,
-                          contactPhoneController.text,
-                          contactAddressController.text);
+                  context.read<ContactsProvider>().writeNewContact(
+                      contactNameController.text,
+                      contactPhoneController.text,
+                      contactAddressController.text);
                   Navigator.pop(context, true);
-                  if (result == 0) {
-                    Dialogs.bottomMaterialDialog(
-                        context: context,
-                        msg: 'Contact not inserted',
-                        title: 'Fail',
-                        color: Colors.white);
-                  }
                 }
               },
               child: const Icon(Icons.check),

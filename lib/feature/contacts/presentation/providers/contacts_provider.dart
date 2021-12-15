@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 class ContactsProvider extends ChangeNotifier {
   final WriteContact writeContact;
   final ContactRepository contactRepository;
-  final int = 0;
 
   ContactsProvider(this.writeContact, this.contactRepository);
 

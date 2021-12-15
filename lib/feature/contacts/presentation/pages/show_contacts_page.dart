@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:contactsapp/injection_container.dart';
 
 class ShowContacts extends StatefulWidget {
   const ShowContacts({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _ShowContactsState extends State<ShowContacts> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ContactsProvider>(
-        create: (context) => ContactsProvider(),
+        create: (context) => sl<ContactsProvider>(),
         child: Consumer<ContactsProvider>(
             builder: (context, contactsProvider, child) {
           return Scaffold(

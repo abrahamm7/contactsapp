@@ -5,6 +5,8 @@ import 'package:contactsapp/feature/contacts/presentation/providers/contacts_pro
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../injection_container.dart';
+
 class EditContact extends StatefulWidget {
   final int? id;
   const EditContact({Key? key, this.id}) : super(key: key);
@@ -40,7 +42,7 @@ class _EditContactState extends State<EditContact> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ContactsProvider>(
-        create: (context) => ContactsProvider(),
+        create: (context) => sl<ContactsProvider>(),
         child: Consumer<ContactsProvider>(
             builder: (context, contactsProvider, child) {
           return Scaffold(
