@@ -48,4 +48,13 @@ class ContactRepositoryImpl implements ContactRepository {
       return Left(CacheFailures());
     }
   }
+
+  @override
+  Future<Either<Failure, int>> deleteContact(int? id) async {
+    try {
+      return Right(await contactInfoLocalDataSource.deleteContact(id));
+    } on CacheExeptions {
+      return Left(CacheFailures());
+    }
+  }
 }

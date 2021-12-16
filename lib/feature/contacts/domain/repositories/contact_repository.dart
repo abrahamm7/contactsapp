@@ -7,4 +7,5 @@ abstract class ContactRepository {
   Future<Either<Failure, int>> updateContact(ContactInfo contactInfo);
   Future<Either<Failure, List<ContactInfo>>> getContacts();
   Future<Either<Failure, ContactInfo>> getContactById(int? id);
+  Future<Either<Failure, int>> deleteContact(int? id);
 }

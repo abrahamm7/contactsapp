@@ -94,6 +94,22 @@ void main() {
       //assert
       expect(result, Right(affectedRows));
     });
+
+    test(
+        'Should return affected rows when call delete method from local data source',
+        () async {
+      //arrange
+      int affectedRows = 1;
+
+      when(mockContactInfoLocalDatasource.deleteContact(any))
+          .thenAnswer((_) async => affectedRows);
+
+      //act
+      final result = await contactRepositoryImpl.deleteContact(affectedRows);
+
+      //assert
+      expect(result, Right(affectedRows));
+    });
   });
 
   group('Local data source failures', () {

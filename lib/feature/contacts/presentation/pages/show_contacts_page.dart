@@ -4,10 +4,15 @@ import 'package:contactsapp/feature/contacts/presentation/components/contactscar
 import 'package:contactsapp/feature/contacts/presentation/pages/write_contacts_page.dart';
 import 'package:contactsapp/feature/contacts/presentation/providers/contacts_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:lottie/lottie.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:provider/provider.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:contactsapp/injection_container.dart';
+
+import 'edit_contacts_page.dart';
 
 class ShowContacts extends StatefulWidget {
   const ShowContacts({Key? key}) : super(key: key);
@@ -57,11 +62,60 @@ class _ShowContactsState extends State<ShowContacts> {
                 : ListView(
                     children: <Widget>[
                       for (var item in listContacts)
-                        ContactsCard(
-                            id: item.id,
-                            nameContact: item.name,
-                            phoneContact: item.phoneNumber,
-                            addressContact: item.address)
+                        InkWell(
+                          splashColor: Colors.green,
+                          onTap: () {
+                            Dialogs.bottomMaterialDialog(
+                                context: context,
+                                msg: item.phoneNumber,
+                                title: item.name,
+                                actions: <Widget>[
+                                  IconsButton(
+                                    onPressed: () async {
+                                      FlutterPhoneDirectCaller.callNumber(
+                                          item.phoneNumber);
+                                    },
+                                    text: 'Call',
+                                    iconColor: Colors.green,
+                                    iconData: Icons.call,
+                                  ),
+                                  IconsButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (_) => EditContact(
+                                                    id: item.id,
+                                                    nameContact: item.name,
+                                                    phoneContact:
+                                                        item.phoneNumber,
+                                                    addressContact:
+                                                        item.address)));
+                                      },
+                                      text: 'Edit',
+                                      iconColor: Colors.white,
+                                      iconData: Icons.edit),
+                                  IconsButton(
+                                    onPressed: () {
+                                      context
+                                          .read<ContactsProvider>()
+                                          .deleteContact(item.id as int);
+                                      setState(() {
+                                        getContacts();
+                                      });
+                                    },
+                                    text: 'Delete',
+                                    iconColor: Colors.red,
+                                    iconData: Icons.delete,
+                                  )
+                                ],
+                                color: Colors.grey.shade800);
+                          },
+                          child: ContactsCard(
+                              id: item.id,
+                              nameContact: item.name,
+                              phoneContact: item.phoneNumber,
+                              addressContact: item.address),
+                        )
                     ],
                   ),
             floatingActionButton: FloatingActionButton(

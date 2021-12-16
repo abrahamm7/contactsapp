@@ -26,6 +26,11 @@ class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
     return await updateContactIntoLocalDatabase(contactInfo);
   }
 
+  @override
+  Future<int> deleteContact(int? id) async {
+    return await removeContact(id);
+  }
+
   Future<List<ContactInfoModel>> fetchAllContactsFromLocalDb() async {
     database = await DatabaseHelper().initDb();
 
@@ -68,5 +73,11 @@ class ContactInfoLocalDataSourceImpl implements ContactInfoLocalDataSource {
     return await database.update(
         Constants.tableName, contactInfoModel.toDbMap(),
         where: "id = ?", whereArgs: [contactInfoModel.id]);
+  }
+
+  Future<int> removeContact(int? id) async {
+    database = await DatabaseHelper().initDb();
+    return await database
+        .delete(Constants.tableName, where: "id = ?", whereArgs: [id]);
   }
 }
